@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aerospace Flow Simulator</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #0f172a, #1e293b);
+            color: white;
+            font-family: Arial;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 40px;
+        }
+
+        .box {
+            margin-top: 30px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            width: 220px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #22c55e;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #16a34a;
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 18px;
+        }
+
+        .input-display {
+            margin-top: 15px;
+            font-size: 16px;
+            color: #cbd5f5;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Aerospace Flow Simulator</h1>
+
+<div class="box">
+    <form method="POST">
+        <input type="number" name="velocity"
+               placeholder="Velocity (m/s)"
+               value="{{ velocity }}" required><br>
+
+        <input type="number" name="altitude"
+               placeholder="Altitude (m)"
+               value="{{ altitude }}" required><br>
+
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if result %}
+
+        {% if result.error %}
+            <p style="color:red;">{{ result.error }}</p>
+        {% else %}
+
+        <div class="input-display">
+            <p><b>Input Velocity:</b> {{ velocity }} m/s</p>
+            <p><b>Input Altitude:</b> {{ altitude }} m</p>
+        </div>
+
+        <div class="result">
+            <p>Temperature: {{ result.T }} K</p>
+            <p>Pressure: {{ result.P }} Pa</p>
+            <p>Density: {{ result.rho }} kg/m³</p>
+            <p>Speed of Sound: {{ result.a }} m/s</p>
+            <p>Mach Number: {{ result.M }}</p>
+            <p>Flow Regime: {{ result.regime }}</p>
+        </div>
+
+        {% endif %}
+
+    {% endif %}
+</div>
+
+</body>
+</html>
